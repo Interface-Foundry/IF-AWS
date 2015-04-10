@@ -94,6 +94,6 @@ In each one of these templates you should have a terraform.tfvars file which loo
 ```
 access_key = "XXXXXXXXXXXXXXXXXX"
 secret_key = "XXXXXXXXXXXXXXXXXXXXXXXXXX"
-key_name = "MyKeyPair"
-key_path = "/somepath/MyKeyPair.pem"
+key_name = "terraform"
+key_path = "/somepath/terraform.pem"
 ```
