@@ -1,0 +1,11 @@
+path:
+  logs: /var/log/elasticsearch
+  data: /opt/elasticsearch
+
+node:
+  name: cerulean
+
+discovery:
+    type: ec2
+
+discovery.ec2.tag.Elasticsearch: true
