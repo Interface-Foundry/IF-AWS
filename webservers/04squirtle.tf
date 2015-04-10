@@ -10,7 +10,7 @@ resource "aws_instance" "web-server-squirtle" {
   key_name = "${var.key_name}"
   instance_type = "${var.instance_type}"
   ebs_optimized = false
-  subnet_id = "${var.subnets.subnet1_id}"
+  subnet_id = "${var.subnets.subnet2_id}"
   associate_public_ip_address = "true"
   security_groups = ["${aws_security_group.WebserverAdmin.id}","${aws_security_group.Webserver.id}","${aws_security_group.WebserverClient.id}"]
   iam_instance_profile = "CodeDeploy-InstanceRole"
