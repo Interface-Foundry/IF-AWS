@@ -11,13 +11,13 @@ resource "aws_elb" "web-servers" {
     lb_protocol = "http"
   }
 
-#  listener {
-#    instance_port = 2997
-#    instance_protocol = "http"
-#    lb_port = 443
-#    lb_protocol = "https"
-#    #ssl_certificate_id = "arn:aws:iam::666251991800:server-certificate/www-webservers"
-#  }
+  listener {
+    instance_port = 80
+    instance_protocol = "http"
+    lb_port = 443
+    lb_protocol = "https"
+    ssl_certificate_id = "arn:aws:iam::127521922525:server-certificate/kipapp-co"
+  }
 
 #  health_check {
 #    healthy_threshold = 2
