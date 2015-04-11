@@ -15,12 +15,6 @@ resource "aws_instance" "web-server-squirtle" {
   security_groups = ["${aws_security_group.WebserverAdmin.id}","${aws_security_group.Webserver.id}","${aws_security_group.WebserverClient.id}"]
   iam_instance_profile = "CodeDeploy-InstanceRole"
 
-  #ebs_block_device {
-  #    device_name = "/dev/xvdf"
-  #    volume_type = "gp2"
-  #    volume_size = "50"
-  #    delete_on_termination = 1 }
-
 #change hostname
   provisioner "file" {
         source = "scripts/change-hostname.sh"
