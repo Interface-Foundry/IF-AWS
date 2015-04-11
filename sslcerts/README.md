@@ -1,6 +1,6 @@
 #SSL certs.
 
-JR has the password that was used will creating the CSR.
+JR has the password that was used for creating the CSR.
 Pythian has it stored in their "secret servers"
 
 Create CA chain:
