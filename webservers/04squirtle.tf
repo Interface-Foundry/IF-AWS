@@ -29,16 +29,6 @@ resource "aws_instance" "web-server-squirtle" {
     ]
   }
 
-#configure block device
-#  provisioner "remote-exec" {
-#    inline = [
-#        "sudo mkdir -p /opt/elasticsearch",
-#        "sudo mkfs.ext4 -I 512 /dev/xvdf",
-#        "echo '/dev/xvdf /opt/elasticsearch ext4 defaults,noatime 1 1' | sudo tee -a /etc/fstab",
-#        "sudo mount -a",
-#    ]
-#  }
-
 #install and configure nginx
   provisioner "file" {
         source = "scripts/install-nginx.sh"
