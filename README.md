@@ -97,3 +97,30 @@ secret_key = "XXXXXXXXXXXXXXXXXXXXXXXXXX"
 key_name = "terraform"
 key_path = "/somepath/terraform.pem"
 ```
+
+To review changes
+```
+terraform plam
+```
+
+To deploy a stack
+```
+terraform apply
+```
+
+To destroy a stack
+```
+terraform destroy
+```
+
+
+Because we are not (yet) using configuration management, these servers are not immutable as they should be.
+Local changes can/should be done, but try add any manual changes to this code as much as possible, so it can be possible to redeploy everything from scratch.
+
+
+Stacks are dependent one of another so redis and mongo should be deployed first (in any order)
+The elasticsearch stack depends on the redis stack, because it runs redis-sentinel.
+One all stacks have been deployed, the webservers stack can be deployed
+
+Remember to add the ELB A record to the hosted zone kipapp.co! This is not done automatically (although it could be)
+

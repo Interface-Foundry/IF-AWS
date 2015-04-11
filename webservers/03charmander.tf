@@ -5,6 +5,7 @@ resource "aws_instance" "web-server-charmander" {
   }
   tags {
     Name = "web-server-charmander"
+    Webserver = "true"
   }
   ami = "${lookup(var.aws_amis, var.aws_region)}"
   key_name = "${var.key_name}"

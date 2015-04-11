@@ -5,6 +5,7 @@ resource "aws_instance" "web-server-squirtle" {
   }
   tags {
     Name = "web-server-squirtle"
+    Webserver = "true"
   }
   ami = "${lookup(var.aws_amis, var.aws_region)}"
   key_name = "${var.key_name}"

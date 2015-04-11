@@ -13,7 +13,7 @@ resource "aws_instance" "elasticsearch-cerulean" {
   ebs_optimized = false
   subnet_id = "${var.subnets.subnet2_id}"
   associate_public_ip_address = "true"
-  security_groups = ["${aws_security_group.ElasticsearchAdmin.id}","${aws_security_group.Elasticsearch.id}","${aws_security_group.ElasticsearchClient.id}"]
+  security_groups = ["${aws_security_group.ElasticsearchAdmin.id}","${aws_security_group.Elasticsearch.id}","${aws_security_group.ElasticsearchClient.id}","${var.security_groups.RedisClient}","${var.security_groups.Redis}"]
   iam_instance_profile = "ElasticsearchDiscovery" 
 
   ebs_block_device {
@@ -67,6 +67,40 @@ resource "aws_instance" "elasticsearch-cerulean" {
         "sudo mv /etc/elasticsearch/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml.orig",
         "sudo mv /home/ubuntu/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml",
         "sudo service elasticsearch start",
+    ]
+  }
+
+#install redis-sentinel
+  provisioner "file" {
+        source = "scripts/install-redis.sh"
+        destination = "/home/ubuntu/install-redis.sh"
+    }
+
+  provisioner "file" {
+        source = "scripts/redis-sentinel-upstart"
+        destination = "/home/ubuntu/redis-sentinel-upstart"
+    }
+
+  provisioner "remote-exec" {
+    inline = [
+        "sh /home/ubuntu/install-redis.sh",
+        "sudo mv /home/ubuntu/redis-sentinel-upstart /etc/init/redis-sentinel.conf",
+    ]
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+        "sudo mv /etc/redis/sentinel.conf /etc/redis/sentinel.conf.orig",
+        "echo sentinel monitor mymaster ${var.private_ip.thunder} 6379 2 | sudo tee /etc/redis/sentinel.conf",
+        "echo sentinel down-after-milliseconds mymaster 20000 | sudo tee -a /etc/redis/sentinel.conf",
+        "echo sentinel failover-timeout mymaster 30000 | sudo tee -a /etc/redis/sentinel.conf",
+        "echo sentinel parallel-syncs mymaster 1 | sudo tee -a /etc/redis/sentinel.conf",
+    ]
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+        "sudo reboot",
     ]
   }
 

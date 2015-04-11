@@ -14,66 +14,33 @@ resource "aws_security_group" "RedisAdmin" {
         cidr_blocks = ["99.241.92.210/32","98.204.55.178/32","209.217.100.73/32"]
     }
 
-    ingress {
-        from_port = 80
-        to_port = 80
-        protocol = "tcp"
-        cidr_blocks = ["99.241.92.210/32","98.204.55.178/32","209.217.100.73/32"]
-    }
-
-    ingress {
-        from_port = 2997
-        to_port = 2997
-        protocol = "tcp"
-        cidr_blocks = ["99.241.92.210/32","98.204.55.178/32","209.217.100.73/32"]
-    }
-
 }
 
 resource "aws_security_group" "RedisClient" {
     name = "RedisClient"
-    description = "EC2 instances in this SG can connect to the Rediss"
+    description = "EC2 instances in this SG can connect to the Redis"
     vpc_id = "${var.vpc_id}"
 
 }
 
 resource "aws_security_group" "Redis" {
     name = "Redis"
-    description = "EC2 instances in RedisClient can connect to the Rediss"
+    description = "EC2 instances in RedisClient can connect to the Redis"
     vpc_id = "${var.vpc_id}"
 
     ingress {
-        from_port = 80
-        to_port = 80
+        from_port = 6379
+        to_port = 6379
         protocol = "tcp"
         security_groups = ["${aws_security_group.RedisClient.id}"]
     }
 
     ingress {
-        from_port = 2997
-        to_port = 2997
+        from_port = 26379
+        to_port = 26379
         protocol = "tcp"
         security_groups = ["${aws_security_group.RedisClient.id}"]
     }
 
 }
 
-resource "aws_security_group" "RedisPublicAccess" {
-    name = "RedisPublicAccess"
-    description = "Redis Public Access"
-    vpc_id = "${var.vpc_id}"
-
-    ingress {
-        from_port = 80
-        to_port = 80
-        protocol = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
-
-    ingress {
-        from_port = 443
-        to_port = 443
-        protocol = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
-}

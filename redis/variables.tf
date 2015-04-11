@@ -54,3 +54,11 @@ variable "subnets" {
     }
 }
 
+variable "private_ip" {
+    description = "ID of redis nodes"
+    default = {
+        thunder = "10.0.2.197"
+        rainbow = "10.0.7.197"
+    }
+}
+
