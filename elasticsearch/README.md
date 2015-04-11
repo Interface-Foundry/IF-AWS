@@ -10,7 +10,7 @@ Admin Access to the public ip is allowed with the AdminElasticsearch security gr
 
 ## Instances
 
-This instance has an additional 50G block device mounted in the /opt/elasticsearch directory. This directory holds ES data.
+These instances have an additional 50G block device mounted in the /opt/elasticsearch directory. This directory holds ES data.
 
 The two instances have the elasticsearch v1.4 repository (current ES version is 1.4.4) added as well as the following plugins:
 
@@ -28,3 +28,9 @@ It this then configured to search for the Elasticsearch=true tag to discover oth
 
 Note that the elasticsearch nodes also have redis installed. This is just to run the cluster monitoring daemon called redis sentinel. Redis-server is not running on these nodes.
 The redis-sentinel daemon monitors health of the redis master server and promotes a slave to master if the master was to fail. Failover timeout is currently set  to 20secs.
+
+## Backups
+
+Elasticsearch backups could be performed to S3, but the this has not yet been configured in the cloud-aws plugin.
+An S3 bucket should be created. Backups and restores could be then be performed according to this documentation: 
+http://www.elastic.co/guide/en/elasticsearch/reference/1.3/modules-snapshots.html

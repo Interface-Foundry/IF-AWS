@@ -47,3 +47,6 @@ compile?
 start the app
 ```
 This can be done in a rolling fashion on the backend instances to not interrupt the services.
+
+## Application
+An application user has been creae. Username is kip. Home directory of this user is /opt/IF-root
