@@ -1,5 +1,56 @@
 #AWS Infrastructure deployment code.
 
+## Endpoints:
+
+###external dns resolution
+
+http://kipapp.co
+
+https://kipapp.co
+
+http://analytics-db-mew.kipapp.co:28017
+
+http://elasticsearch-cerulean.kipapp.co:9200/_plugin/head/
+
+http://elasticsearch-cerulean.kipapp.co:9200/_plugin/bigdesk/
+
+http://elasticsearch-vermillion.kipapp.co:9200/_plugin/head/
+
+http://elasticsearch-vermillion.kipapp.co:9200/_plugin/bigdesk/
+
+??forage-server-ash.kipapp.co??
+
+redis-rainbow.kipapp.co
+
+redis-thunder.kipapp.co
+
+http://web-server-charmander.kipapp.co
+
+https://web-server-charmander.kipapp.co (invalid cert)
+
+http://web-server-squirtle.kipapp.co
+
+https://web-server-squirtle.kipapp.co (invalid cert)
+
+### internal dns resolution
+
+analytics-db-mew.internal.kipapp.co
+
+elasticsearch-cerulean.internal.kipapp.co
+
+elasticsearch-cerulean.internal.kipapp.co
+
+forage-server-ash.internal.kipapp.co
+
+redis-rainbow.internal.kipapp.co
+
+redis-thunder.internal.kipapp.co
+
+web-server-squirtle.internal.kipapp.co
+
+web-server-charmander.internal.kipapp.co
+
+
 ##Prerequisites:
 
 ###IAM Policies.
