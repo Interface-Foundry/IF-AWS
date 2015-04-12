@@ -8,6 +8,13 @@ Create CA chain:
 cat COMODORSADomainValidationSecureServerCA.crt COMODORSAAddTrustCA.crt AddTrustExternalCARoot.crt > ca-chain.crt
 ```
 
+Create nginx cert:
+```
+cat kipapp_co.crt ca-chain.crt > nginx-kipapp-co.pem
+```
+
+Upload cert to AWS:
+
 ```
 aws iam upload-server-certificate \
  --server-certificate-name kipapp-co --certificate-body file://kipapp_co.crt \
