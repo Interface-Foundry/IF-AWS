@@ -1,0 +1,5 @@
+ec2-expire-snapshots                                                     \
+  --aws-access-key-id your_access_key_id                                 \
+  --aws-secret-access-key your_secret_key                                \
+  --keep-most-recent 1                                                   \
+  volume_id

@@ -1,0 +1,9 @@
+ec2-consistent-snapshot                                                  \
+  --aws-access-key-id your_access_key_id                                 \
+  --aws-secret-access-key your_secret_key                                \
+  --mongo                                                                \
+  --mongo-host private_ip                                                \
+  --freeze-filesystem /var/lib/mongodb                                     \
+  --region us-east-1                                                     \
+  --description analytics-db-web snapshot $(date +'%Y-%m-%d %H:%M:%S')   \
+  volume_id
