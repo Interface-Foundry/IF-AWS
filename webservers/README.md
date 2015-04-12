@@ -15,7 +15,10 @@ The WebserverPublicAccess security group allows for connection on port 80 443 fr
 
 These webserver nodes have nginx, nodejs, pm2 and golang installed. They also have AWS's CodeDeploy agent installed to allow for easy code-deployments.
 
-For now nginx just has the default vhost configured. Some additional configurations will be required.
+Nginx listens on port 80 and 443. Port 80 rewrites http traffic to https.
+
+On port 443 the ssl certificates have been configured. A proxy_pass to the backend configuration still needs to be configured.
+
 
 Nodejs version 0.10.38 is installed from the https://deb.nodesource.com repositories.
 
@@ -27,10 +30,11 @@ Golang v1.4.2 is installed in /usr/local/go/ . /usr/local/go/bin has been added 
 
 The Elastic Load Balancer is using an ssl certificate that was uploaded to the AWS account (see sslcerts directory). 
 
-We have two listeners on the ELB, on ports 80 and 443. Port 80 sends traffic to port 80 on the instances, where nginx is listening (this is where a rewrite from http to https should happen).
-Port 443 sends traffic back to the nodejs application listening on port 2997. SSL is offloaded by the ELB.
+We have two listeners on the ELB, on ports 80 and 443. Port 80 sends traffic to port 80 on the instances, where nginx is listening - traffic is rewritten to https useing the $server parameter.
+This permits the rewrite to work when directly accessing the nodes without going through the ELB. The ssl certificate will appear invalid in this case, as it's not a wildcard cert.
+Port 443 sends traffic back to nginx through http on port 443. SSL is offloaded by the ELB, but communication between the ELB and nginx are secured as well.
 
-A healthcheck of the instances is performed on the instance by checking the following url HTTP:2997/api/healthcheck
+A healthcheck of the instances is performed on the instance by checking the following url HTTP:2997/api/healthcheck (to be enabled once the app is deployed)
 
 Both webservers charmander and squirtle are members of this ELB.
 

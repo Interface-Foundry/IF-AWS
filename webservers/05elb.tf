@@ -12,8 +12,8 @@ resource "aws_elb" "web-servers" {
   }
 
   listener {
-    instance_port = 80
-    instance_protocol = "http"
+    instance_port = 443
+    instance_protocol = "https"
     lb_port = 443
     lb_protocol = "https"
     ssl_certificate_id = "arn:aws:iam::127521922525:server-certificate/kipapp-co"

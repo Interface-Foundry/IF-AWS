@@ -58,6 +58,13 @@ resource "aws_security_group" "Webserver" {
     }
 
     ingress {
+        from_port = 443
+        to_port = 443
+        protocol = "tcp"
+        security_groups = ["${aws_security_group.WebserverClient.id}"]
+    }
+
+    ingress {
         from_port = 2997
         to_port = 2997
         protocol = "tcp"

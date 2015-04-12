@@ -35,9 +35,21 @@ resource "aws_instance" "web-server-charmander" {
         destination = "/home/ubuntu/install-nginx.sh"
     }
 
+  provisioner "file" {
+        source = "../sslcerts/nginx-kipapp-co.pem"
+        destination = "/home/ubuntu/kipapp-co.pem"
+    }
+
+  provisioner "file" {
+        source = "../sslcerts/kipapp-co.key"
+        destination = "/home/ubuntu/kipapp-co.key"
+    }
+
   provisioner "remote-exec" {
     inline = [
         "sh /home/ubuntu/install-nginx.sh",
+        "sudo mv /home/ubuntu/kipapp-co.pem /etc/ssl/",
+        "sudo mv /home/ubuntu/kipapp-co.key /etc/ssl/",
     ]
   }
 
@@ -77,5 +89,11 @@ resource "aws_instance" "web-server-charmander" {
     ]
   }
 
+#reboot
+  provisioner "remote-exec" {
+    inline = [
+        "sudo reboot",
+    ]
+  }
 
 }

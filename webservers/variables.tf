@@ -54,3 +54,23 @@ variable "subnets" {
     }
 }
 
+variable "private_ip" {
+    description = "ID of redis nodes"
+    default = {
+        thunder = "10.0.2.197"
+        rainbow = "10.0.7.197"
+    }
+}
+
+variable "security_groups" {
+    description = "some security groups"
+    default = {
+        RedisClient = "sg-ca7d02ae"
+        Redis       = "sg-ce7d02aa"
+    }
+}
+
+variable "hosted_zone_id" {
+    description = "Route53 Public zone Id"
+    default = "Z3JM27F7IBJE9W"
+}
