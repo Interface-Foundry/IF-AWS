@@ -13,7 +13,7 @@ resource "aws_instance" "web-server-charmander" {
   ebs_optimized = false
   subnet_id = "${var.subnets.subnet1_id}"
   associate_public_ip_address = "true"
-  security_groups = ["${aws_security_group.WebserverAdmin.id}","${aws_security_group.Webserver.id}","${aws_security_group.WebserverClient.id}"]
+  security_groups = ["${aws_security_group.WebserverAdmin.id}","${aws_security_group.Webserver.id}","${aws_security_group.WebserverClient.id}","${var.security_groups.RedisClient}","${var.security_groups.ElasticsearchClient}"]
   iam_instance_profile = "CodeDeploy-InstanceRole"
 
 #change hostname

@@ -19,13 +19,13 @@ resource "aws_elb" "web-servers" {
     ssl_certificate_id = "arn:aws:iam::127521922525:server-certificate/kipapp-co"
   }
 
-#  health_check {
-#    healthy_threshold = 2
-#    unhealthy_threshold = 2
-#    timeout = 3
-#    target = "HTTP:2997/api/healthcheck"
-#    interval = 10
-#  }
+  health_check {
+    healthy_threshold = 2
+    unhealthy_threshold = 2
+    timeout = 3
+    target = "HTTPS:2997/api/healthcheck"
+    interval = 10
+  }
 
   instances = ["${aws_instance.web-server-charmander.id}","${aws_instance.web-server-squirtle.id}"]
   cross_zone_load_balancing = true
