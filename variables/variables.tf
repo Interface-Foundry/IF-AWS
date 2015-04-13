@@ -67,6 +67,7 @@ variable "security_groups" {
     default = {
         RedisClient = "sg-ca7d02ae"
         Redis       = "sg-ce7d02aa"
+        ElasticsearchClient = "sg-c07c03a4"
     }
 }
 
