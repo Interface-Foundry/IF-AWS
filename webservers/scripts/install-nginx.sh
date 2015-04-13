@@ -18,15 +18,12 @@ server {
        ssl_certificate     /etc/ssl/kipapp-co.pem;
        ssl_certificate_key /etc/ssl/kipapp-co.key;
 
-       root /usr/share/nginx/html;
-       index index.html index.htm;
 
        location / {
-                # First attempt to serve request as file, then
-                # as directory, then fall back to displaying a 404.
-                try_files $uri $uri/ =404;
-                # Uncomment to enable naxsi on this location
-                # include /etc/nginx/naxsi.rules
+        proxy_pass http://127.0.0.1:2997;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         }
 }
 EOF
