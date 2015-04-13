@@ -23,7 +23,7 @@ resource "aws_elb" "web-servers" {
     healthy_threshold = 2
     unhealthy_threshold = 2
     timeout = 3
-    target = "HTTPS:2997/api/healthcheck"
+    target = "HTTP:2997/api/healthcheck"
     interval = 10
   }
 
