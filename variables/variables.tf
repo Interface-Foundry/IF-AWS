@@ -65,8 +65,8 @@ variable "private_ip" {
 variable "security_groups" {
     description = "some security groups"
     default = {
-        RedisClient = "sg-ca7d02ae"
-        Redis       = "sg-ce7d02aa"
+        RedisClient = "sg-ce7d02aa"
+        Redis       = "sg-ca7d02ae"
         ElasticsearchClient = "sg-c07c03a4"
     }
 }
