@@ -55,6 +55,7 @@ resource "aws_instance" "web-server-charmander" {
 
 #install and configure nodejs
   provisioner "file" {
+
         source = "scripts/install-nodejs.sh"
         destination = "/home/ubuntu/install-nodejs.sh"
     }
@@ -87,6 +88,23 @@ resource "aws_instance" "web-server-charmander" {
     inline = [
         "sh /home/ubuntu/install-golang.sh",
     ]
+  }
+
+#configure shell
+  provisioner "file" {
+        source = "scripts/if_bashrc"
+        destination = "/home/ubuntu/if_bashrc"
+    }
+
+  provisioner "file" {
+		source = "scripts/setup_bashrc.sh"
+		destination = "/home/ubuntu/setup_bashrc.sh"
+    }
+  
+  provisioner "remote-exec" {
+	inline = [
+		"sh scripts/setup_bashrc.sh"
+	]
   }
 
 #reboot

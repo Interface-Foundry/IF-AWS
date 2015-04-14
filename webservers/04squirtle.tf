@@ -89,6 +89,22 @@ resource "aws_instance" "web-server-squirtle" {
     ]
   }
 
+#configure shell
+  provisioner "file" {
+        source = "scripts/if_bashrc"
+        destination = "/home/ubuntu/if_bashrc"
+    }
+
+  provisioner "file" {
+		source = "scripts/setup_bashrc.sh"
+		destination = "/home/ubuntu/setup_bashrc.sh"
+    }
+  
+  provisioner "remote-exec" {
+	inline = [
+		"sh scripts/setup_bashrc.sh"
+	]
+
 #reboot
   provisioner "remote-exec" {
     inline = [

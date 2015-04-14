@@ -1,0 +1,8 @@
+# interface foundry shell stuff
+
+# angry red shell prompt
+export PS1='\[\e[1;31m\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$ \[\e[0m\]'
+
+# necessary env variables
+export MONGOPW='XsplKfnFoznVwgG2tE81iJ5GmU2PXqtyatDSt5Jpf1h'
+export NODE_ENV=production
