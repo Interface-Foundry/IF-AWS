@@ -9,7 +9,7 @@ resource "aws_instance" "elasticsearch-cerulean" {
   }
   ami = "${lookup(var.aws_amis, var.aws_region)}"
   key_name = "${var.key_name}"
-  instance_type = "${var.instance_type}"
+  instance_type = "c4.xlarge"
   ebs_optimized = false
   subnet_id = "${var.subnets.subnet2_id}"
   associate_public_ip_address = "true"
