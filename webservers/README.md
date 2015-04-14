@@ -17,8 +17,7 @@ These webserver nodes have nginx, nodejs, pm2 and golang installed. They also ha
 
 Nginx listens on port 80 and 443. Port 80 rewrites http traffic to https.
 
-On port 443 the ssl certificates have been configured. A proxy_pass to the backend configuration still needs to be configured.
-
+On port 443 the ssl certificates have been configured. A proxy_pass to the backend application on 127.0.0.1:2997 has been implemented.
 
 Nodejs version 0.10.38 is installed from the https://deb.nodesource.com repositories.
 
@@ -41,16 +40,9 @@ Both webservers charmander and squirtle are members of this ELB.
 ## CodeDeploy
 
 The Instances have an IAM role associated that allows them to perform Code Deployment tasks. The instances also have a tag Webserver=true which also to select which instances we want to deploy code to from the CodeDeploy webui.
-The initial "application" configuration has been performed in code deploy, but it needs to be granted access to the github repository.
-A small script explaining the CodeDeploy process should also be created i.e.:
-```
-stop the app
-cleanup the folder
-deploy the code
-compile?
-start the app
-```
-This can be done in a rolling fashion on the backend instances to not interrupt the services.
+Thde deployment can be done in a rolling fashion on the backend instances to not interrupt the services.
+
+In the IF-root directory, the appspec.yml file describes the actual deployment process, while several scripts that help with the deployment are held in the codedeploy-scripts directory.
 
 ## Application
-An application user has been creae. Username is kip. Home directory of this user is /opt/IF-root
+An application user has been created. Username is kip. Home directory of this user is /opt/kipp. The application is desployed in the /opt/kip/App directory.
