@@ -104,6 +104,7 @@ resource "aws_instance" "web-server-squirtle" {
 	inline = [
 		"sh scripts/setup_bashrc.sh"
 	]
+   }
 
 #reboot
   provisioner "remote-exec" {
