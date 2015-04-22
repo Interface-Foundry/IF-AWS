@@ -7,12 +7,14 @@ server {
        listen         80 default_server;
        listen [::]:80 default_server ipv6only=on;
        server_name    kipapp.co;
+	   client_max_body_size 50m;
        return         301 https://$host$request_uri;
 }
 server {
        listen 443;
        listen [::]:443 ipv6only=on;
        server_name    kipapp.co;
+	   client_max_body_size 50m;
 
        ssl on;
        ssl_certificate     /etc/ssl/kipapp-co.pem;
