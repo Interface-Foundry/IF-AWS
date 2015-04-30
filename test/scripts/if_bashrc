@@ -1,0 +1,7 @@
+# interface foundry shell stuff
+
+# angry red shell prompt
+export PS1='\[\e[1;31m\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$ \[\e[0m\]'
+
+# necessary env variables
+export NODE_ENV=test
