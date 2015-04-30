@@ -5,7 +5,6 @@ resource "aws_instance" "pikachu" {
   }
   tags {
     Name = "pikachu"
-    Webserver = "true"
   }
   ami = "${lookup(var.aws_amis, var.aws_region)}"
   key_name = "${var.key_name}"
@@ -13,8 +12,7 @@ resource "aws_instance" "pikachu" {
   ebs_optimized = false
   subnet_id = "${var.subnets.subnet1_id}"
   associate_public_ip_address = "true"
-  security_groups = ["${aws_security_group.WebserverAdmin.id}","${aws_security_group.Webserver.id}","${aws_security_group.WebserverClient.id}","${var.security_groups.RedisClient}","${var.security_groups.ElasticsearchClient}"]
-  iam_instance_profile = "CodeDeploy-InstanceRole"
+  security_groups = ["${aws_security_group.TestServer.id}"]
 
 #change hostname
   provisioner "file" {
@@ -95,7 +93,7 @@ resource "aws_instance" "pikachu" {
     destination = "/home/ubuntu/redis-sentinel-upstart"
   }
 
-  provisioner "remote-exec" 
+  provisioner "remote-exec" {
     inline = [
       "sh /home/ubuntu/install-redis.sh",
       "sudo mv /home/ubuntu/redis-sentinel-upstart /etc/init/redis-sentinel.conf",
@@ -103,6 +101,10 @@ resource "aws_instance" "pikachu" {
   }
 
 #setup log.io-server
+  provisioner "file" {
+    source = "scripts/log.io"
+    destination = "/home/ubuntu"
+  }
   provisioner "file" {
     source = "scripts/install-log.io-server.sh"
     destination = "/home/ubuntu/install-log.io-server.sh"
@@ -113,10 +115,17 @@ resource "aws_instance" "pikachu" {
     destination = "/home/ubuntu/log.io-server-upstart"
   }
 
+  provisioner "file" {
+    source = "scripts/log.io-harvester-upstart"
+    destination = "/home/ubuntu/log.io-harvester-upstart"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "sudo bash /home/ubuntu/install-log.io-server.sh",
       "sudo mv /home/ubuntu/log.io-server-upstart /etc/init/log.io-server.conf",
+      "sudo mv /home/ubuntu/log.io-harvester-upstart /etc/init/log.io-harvester.conf",
+      "mv /home/ubuntu/log.io /home/ubuntu/.log.io",
     ]
   }
 

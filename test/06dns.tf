@@ -1,41 +1,16 @@
-resource "aws_route53_record" "charmander" {
+resource "aws_route53_record" "pikachu" {
    zone_id = "${var.hosted_zone_id}"
-   name = "web-server-charmander.kipapp.co"
+   name = "pikachu.kipapp.co"
    type = "A"
    ttl = "300"
-   records = ["${aws_instance.web-server-charmander.public_ip}"]
+   records = ["${aws_instance.pikachu.public_ip}"]
 }
 
-resource "aws_route53_record" "charmander-internal" {
+resource "aws_route53_record" "pikachu-internal" {
    zone_id = "${var.hosted_zone_id}"
-   name = "web-server-charmander.internal.kipapp.co"
+   name = "pikachu.internal.kipapp.co"
    type = "A"
    ttl = "300"
-   records = ["${aws_instance.web-server-charmander.private_ip}"]
+   records = ["${aws_instance.pikachu.private_ip}"]
 }
-
-resource "aws_route53_record" "squirtle" {
-   zone_id = "${var.hosted_zone_id}"
-   name = "web-server-squirtle.kipapp.co"
-   type = "A"
-   ttl = "300"
-   records = ["${aws_instance.web-server-squirtle.public_ip}"]
-}
-
-resource "aws_route53_record" "squirtle-internal" {
-   zone_id = "${var.hosted_zone_id}"
-   name = "web-server-squirtle.internal.kipapp.co"
-   type = "A"
-   ttl = "300"
-   records = ["${aws_instance.web-server-squirtle.private_ip}"]
-}
-
-#alias A records are not yet supported by terraform
-#resource "aws_route53_record" "ELB" {
-#   zone_id = "${var.hosted_zone_id}"
-#   name = "kipapp.co"
-#   type = "A"
-#   ttl = "300"
-#   records = ["dualstack.${aws_elb.web-servers.dns_name}"]
-#}
 
