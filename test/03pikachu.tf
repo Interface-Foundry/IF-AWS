@@ -14,6 +14,13 @@ resource "aws_instance" "pikachu" {
   associate_public_ip_address = "true"
   security_groups = ["${aws_security_group.TestServer.id}"]
 
+  ebs_block_device {
+    device_name = "/dev/xvdf"
+    volume_type = "gp2"
+    volume_size = "50"
+    delete_on_termination = 1
+  }
+
 #change hostname
   provisioner "file" {
         source = "scripts/change-hostname.sh"
@@ -80,6 +87,17 @@ resource "aws_instance" "pikachu" {
   provisioner "file" {
     source = "scripts/install-mongodb.sh"
     destination = "/home/ubuntu/install-mongodb.sh"
+  }
+
+# configure block device
+  provisioner "remote-exec" {
+    inline = [
+      "sudo mkfs.ext4 -I 512 /dev/xvdf",
+      "echo '/dev/xvdf /db ext4 defaults,noatime 1 1' | sudo tee -a /etc/fstab",
+      "sudo mount -a",
+      "sudo mkdir -p /db/mongodb/data",
+      "sudo mkdir /db/elasticsearch/data",
+	]
   }
 
 #setup redis
