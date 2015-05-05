@@ -8,7 +8,7 @@ resource "aws_instance" "pikachu" {
   }
   ami = "${lookup(var.aws_amis, var.aws_region)}"
   key_name = "${var.key_name}"
-  instance_type = "t1.micro"
+  instance_type = "t2.micro"
   ebs_optimized = false
   subnet_id = "${var.subnets.subnet1_id}"
   associate_public_ip_address = "true"
@@ -93,15 +93,23 @@ resource "aws_instance" "pikachu" {
     destination = "/home/ubuntu/mongodb.yaml"
   }
 
+  provisioner "remote-exec" {
+    inline = [
+      "sh /home/ubuntu/install-mongodb.sh",
+    ]
+  }
+
 # configure block device
   provisioner "remote-exec" {
     inline = [
+      "sudo mkdir /db",
       "sudo mkfs.ext4 -I 512 /dev/xvdf",
       "echo '/dev/xvdf /db ext4 defaults,noatime 1 1' | sudo tee -a /etc/fstab",
       "sudo mount -a",
       "sudo mkdir -p /db/mongodb/data",
       "sudo mkdir -p /db/mongodb/log",
-      "sudo mkdir /db/elasticsearch/data",
+      "sudo mkdir -p /db/elasticsearch/data",
+      "sudo mkdir -p /db/elasticsearch/log",
 	]
   }
 
@@ -111,15 +119,9 @@ resource "aws_instance" "pikachu" {
     destination = "/home/ubuntu/install-redis.sh"
   }
 
-  provisioner "file" {
-    source = "scripts/redis-sentinel-upstart"
-    destination = "/home/ubuntu/redis-sentinel-upstart"
-  }
-
   provisioner "remote-exec" {
     inline = [
       "sh /home/ubuntu/install-redis.sh",
-      "sudo mv /home/ubuntu/redis-sentinel-upstart /etc/init/redis-sentinel.conf",
     ]
   }
 
@@ -165,7 +167,7 @@ resource "aws_instance" "pikachu" {
   
   provisioner "remote-exec" {
 	inline = [
-		"sh scripts/setup_bashrc.sh"
+		"sh /home/ubuntu/setup_bashrc.sh"
 	]
   }
 
