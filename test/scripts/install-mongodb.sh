@@ -4,6 +4,8 @@ echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.
 sudo apt-get update
 sudo apt-get install -y mongodb-org
 
+sudo ln -sf /home/ubuntu/mongodb.yaml /etc/mongodb.conf
+
 sudo bash -c 'cat << EOF > /etc/rc.local
 !/bin/sh -e
 #

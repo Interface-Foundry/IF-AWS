@@ -88,6 +88,10 @@ resource "aws_instance" "pikachu" {
     source = "scripts/install-mongodb.sh"
     destination = "/home/ubuntu/install-mongodb.sh"
   }
+  provisioner "file" {
+    source = "scripts/mongodb.yaml"
+    destination = "/home/ubuntu/mongodb.yaml"
+  }
 
 # configure block device
   provisioner "remote-exec" {
@@ -96,6 +100,7 @@ resource "aws_instance" "pikachu" {
       "echo '/dev/xvdf /db ext4 defaults,noatime 1 1' | sudo tee -a /etc/fstab",
       "sudo mount -a",
       "sudo mkdir -p /db/mongodb/data",
+      "sudo mkdir -p /db/mongodb/log",
       "sudo mkdir /db/elasticsearch/data",
 	]
   }

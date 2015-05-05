@@ -1,0 +1,21 @@
+storage:
+    dbPath: "/db/mongodb/data"
+    directoryPerDB: true
+    journal:
+        enabled: true
+systemLog:
+    destination: file
+    path: "/db/mongodb/log/mongodb.log"
+    logAppend: true
+    timeStampFormat: iso8601-utc
+processManagement:
+    fork: true
+net:
+    bindIp: 0.0.0.0
+    port: 27017
+    wireObjectCheck: false
+    unixDomainSocket:
+        enabled: true
+replication:
+    oplogSizeMB: 128
+    replSetName: "foundry_test"
