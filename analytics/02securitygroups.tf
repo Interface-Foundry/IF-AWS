@@ -3,7 +3,7 @@ resource "aws_security_group" "AnalyticsAdmin" {
     description = "Analytics Admin Access"
     vpc_id = "${var.vpc_id}"
 
-#peter's home - 98.204.55.178
+#peter's home - 73.39.200.49
 #pierig's home - 99.241.92.210
 #pythian vpn - 209.217.100.73
 #Interface Foundry - 198.176.46.33 
@@ -12,14 +12,14 @@ resource "aws_security_group" "AnalyticsAdmin" {
         from_port = 22
         to_port = 22
         protocol = "tcp"
-        cidr_blocks = ["99.241.92.210/32","98.204.55.178/32","209.217.100.73/32","198.176.46.33/32"]
+        cidr_blocks = ["99.241.92.210/32","73.39.200.49/32","209.217.100.73/32","198.176.46.33/32"]
     }
 
     ingress {
         from_port = 28017
         to_port = 28017
         protocol = "tcp"
-        cidr_blocks = ["99.241.92.210/32","98.204.55.178/32","209.217.100.73/32","198.176.46.33/32"]
+        cidr_blocks = ["99.241.92.210/32","73.39.200.49/32","209.217.100.73/32","198.176.46.33/32"]
     }
 
 }
