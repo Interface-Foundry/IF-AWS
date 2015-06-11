@@ -1,0 +1,6 @@
+path:
+  logs: /db/elasticsearch/log
+  data: /db/elasticsearch/data
+
+node:
+  name: pikachu

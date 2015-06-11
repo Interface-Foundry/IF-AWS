@@ -51,4 +51,13 @@ resource "aws_security_group" "TestServer" {
         protocol = "tcp"
         cidr_blocks = ["0.0.0.0/0","99.241.92.210/32","73.39.200.49/32","209.217.100.73/32","198.176.46.33/32"]
     }
+
+
+    ingress {
+        from_port = 9200
+        to_port = 9200
+        protocol = "tcp"
+        cidr_blocks = ["99.241.92.210/32","73.39.200.49/32","209.217.100.73/32","198.176.46.33/32"]
+    }
+
 }

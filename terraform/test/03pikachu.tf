@@ -113,6 +113,32 @@ resource "aws_instance" "pikachu" {
 	]
   }
 
+#install and configure elasticsearch
+  provisioner "file" {
+        source = "scripts/elasticsearch-install.sh"
+        destination = "/home/ubuntu/elasticsearch-install.sh"
+    }
+
+  provisioner "remote-exec" {
+    inline = [
+        "sh /home/ubuntu/elasticsearch-install.sh",
+    ]
+  }
+
+  provisioner "file" {
+        source = "scripts/elasticsearch-pikachu.yml"
+        destination = "/home/ubuntu/elasticsearch.yml"
+    }
+
+  provisioner "remote-exec" {
+    inline = [
+        "sudo mv /etc/elasticsearch/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml.orig",
+        "sudo mv /home/ubuntu/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml",
+        "sudo service elasticsearch start",
+    ]
+  }
+
+
 #setup redis
   provisioner "file" {
     source = "scripts/install-redis.sh"
