@@ -1,0 +1,4 @@
+cluster:
+  name: 'foundry-monitoring'
+node:
+  name: 'deerling'
