@@ -3,8 +3,8 @@
 echo running logstash for ELK stack
 
 docker run -d \
-    --name logstash
+    --name logstash \
     -v "$PWD"/config:/config-dir \
-    -p 5043:5043
+    -p 5043:5043 \
     logstash \
     logstash -f /config-dir/logstash.conf
