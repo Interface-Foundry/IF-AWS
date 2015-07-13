@@ -7,4 +7,4 @@ docker run -d \
     -v "$PWD"/config:/config-dir \
     -p 5043:5043 \
     logstash \
-    logstash -f /config-dir/logstash.conf
+    logstash -f /config-dir/*.conf
