@@ -1,0 +1,4 @@
+cluster:
+  name: 'IntergalacticLabs'
+node:
+  name: 'Sonic'

@@ -1,0 +1,13 @@
+#/bin/bash
+
+mkdir -p "$PWD/data"
+
+echo starting mongo docker container
+docker run --name mongo -p 27017:27017 -d -v "$PWD/data":/data/db mongo --replSet rs0
+
+echo sleeping for 60s while mongo spins up... sign
+sleep 60
+
+echo initializing replica set
+mongo --eval "rs.initiate()"
+
